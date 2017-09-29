@@ -1,0 +1,115 @@
+﻿@model TestJob.Employee.ViewModel.ComplexModel
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Start page</title>
+    <link rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/css/**/*.css" />
+    <link href="~/lib/myjscss/my-style.css" rel="stylesheet" />
+</head>
+<body>
+    <h4 class="my-head"> Employees </h4>
+    @*<h5 class="text-info">ViewBag.Info : @ViewBag.Info</h5>*@
+    <input type="button" id="display-add-worker" class="btn btn-primary" value="Добавить служащего" />
+    <strong>Выбрать служащих имеющих статус: </strong>
+    <a asp-action="Start" asp-route-page="0" asp-route-status="true" class="btn btn-info">Активен</a>
+    <a asp-action="Start" asp-route-page="0" asp-route-status="false" class="btn btn-info">Неактивен</a>
+    <a asp-action="Start" asp-route-page="0" class="btn btn-info">Все</a>
+    <span style="float:right;">
+        <strong>Получить отчет: </strong>
+        <a asp-action="Report" class="btn btn-info" style="padding:3px;" >
+            <img src="~/lib/Icon/icon-txt2.png" style="height:33px;" />
+        </a>
+    </span>
+     <br/> <br />
+    @*<i class="alert-info" style="float:right;" >Отсортировать таблицу клик по заголовку</i>*@
+    <table class="table table-hover" id="table-workmen">
+        <thead class="table alert-info">
+            <tr>
+                @*<th>id&#173; &#173; &#8595; &#8593;</th>*@
+                <th>Имя &#173; &#173; &#8595; &#8593;</th>
+                <th>Фамилия &#173; &#173; &#8595; &#8593;</th>
+                <th>Должност &#173; &#173; &#8595; &#8593;</th>
+                <th>Статус &#173; &#173; &#8595; &#8593;</th>
+                <th>Оклад &#173; &#173; &#8595; &#8593;</th>
+                <th>Налог % &#173; &#173; &#8595; &#8593;</th>
+                <th>Налог сумма &#173; &#173; &#8595; &#8593;</th>
+                <th>Зарплата &#173; &#173; &#8595; &#8593;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var workman in Model.Workmen)
+            {
+                <tr>
+                    @*<td>@workman.Id</td>*@
+                    <td>@workman.FirstName</td>
+                    <td>@workman.LastName</td>
+                    <td>@workman.Position</td>
+                    <td>@workman.Status</td>
+                    <td>@workman.Tasso</td>
+                    <td>@workman.TaxRate</td>
+                    <td>@workman.Tax</td>
+                    <td>@workman.Wages</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="text-align:center;">
+        @for (int i = 0; i < Model.TotallPage; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <a asp-action="Start" asp-route-page="@i" asp-route-status="@Model.Status" class="btn btn-primary">@(i + 1)</a>
+            }
+            else
+            {
+                <a asp-action="Start" asp-route-page="@i" asp-route-status="@Model.Status" class="btn btn-info">@(i + 1)</a>
+
+            }
+        }
+    </div>
+    <form>
+        <div class="worker-group" id="worker-data">
+            <ul>
+                <li>
+                    <i>Имя</i>
+                    <input asp-for="Worker.FirstName" class="form-control" id="worker-fname" />
+                    <span asp-validation-for="Worker.FirstName" class="text-danger" />
+                </li>
+                <li>
+                    <i>Фамилия</i>
+                    <input asp-for="Worker.LastName" class="form-control" id="worker-lname" />
+                    <span asp-validation-for="Worker.LastName" class="text-danger" />
+                </li>
+                <li>
+                    <i>Должность</i>
+                    <input asp-for="Worker.Position" class="form-control" id="worker-position"/>
+                    <span asp-validation-for="Worker.Position" class="text-danger" />
+                </li>
+                <li>
+                    <i>Статус</i>
+                    <input type="checkbox" class="checkbox" id="worker-status" checked/>
+                    <span class=""></span>
+                </li>
+                <li>
+                    <i>Оклад</i>
+                    <input asp-for="Worker.Tasso" class="form-control" id="worker-tasso"/>
+                    <span asp-validation-for="Worker.Tasso" class="text-danger" />
+                </li>
+            </ul>
+            <br />
+            <input type="button" id="add-close" class="btn btn-primary" value="Закрыть" />
+            <input type="button" id="add-worker" class="btn btn-primary" style="float:right;" value="Добавить" />
+        </div>
+</form>
+    
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/myjscss/my-script.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery.tablesorter/dist/js/jquery.tablesorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿.worker-group {
+    position:absolute;
+    float:left;
+    top:12%;
+    left:12%;
+    width:30%;
+    border:1px solid blue;
+    background-color:azure;
+    padding:10px;
+    display:none;
+}
+strong {
+    margin: 5px;
+    padding: 5px;
+    color:cornflowerblue;
+    font-size: 15px;
+}
+.my-head {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:dodgerblue;
+    font-size: 21px;
+    margin-left:57px;
+}
+/*#table-workmen thead tr th::before {
+    content: '&#173; &#173; &#8595; &#8593;';
+    /*background: url('../icon/arrow.png') right no-repeat 25px;*/
+    /*content: url('../icon/arrow.png');*/
+}*/

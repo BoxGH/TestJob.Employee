@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>dnx451;dnxcore50</TargetFrameworks>
+    <AssemblyName>TestJob.Employee</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>TestJob.Employee</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\**\*;node_modules" />
+    <EmbeddedResource Remove="wwwroot\**\*;node_modules" />
+    <None Update="**.user;**.vspscc">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework.Commands" Version="7.0.0-rc1-final" />
+    <PackageReference Include="EntityFramework.MicrosoftSqlServer" Version="7.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNet.Diagnostics" Version="1.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNet.IISPlatformHandler" Version="1.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="6.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNet.Mvc.TagHelpers" Version="6.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNet.Server.Kestrel" Version="1.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNet.StaticFiles" Version="1.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNet.Tooling.Razor" Version="1.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.Extensions.CodeGenerators.Mvc" Version="1.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'dnx451' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+    <Exec Command="npm install" />
+    <Exec Command="bower install" />
+    <Exec Command="gulp clean" />
+    <Exec Command="gulp min" />
+  </Target>
+
+</Project>
